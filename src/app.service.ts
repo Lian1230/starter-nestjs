@@ -40,10 +40,6 @@ const functions = [
     parameters: {
       type: 'object',
       properties: {
-        person: {
-          type: 'string',
-          description: 'The name of the person whose todo list in which to add',
-        },
         name: {
           type: 'string',
           description: 'The name of the todo item',
@@ -53,7 +49,7 @@ const functions = [
           description: 'Whether the todo item is completed',
         },
       },
-      required: ['person', 'name'],
+      required: ['name'],
     },
   },
 ];
@@ -80,20 +76,18 @@ export class AppService {
   }
 
   createTodo({
-    person,
     name,
     completed = false,
   }: {
-    person: string;
     name: string;
     completed: boolean;
   }) {
-    const personName = person.toLocaleLowerCase();
-    if (!this.todoList[personName]) {
-      this.todoList[personName] = [{ name, completed }];
-      return JSON.stringify({ message: 'a new todo list created' });
-    }
-    this.todoList[personName].push({ name, completed });
+    // const personName = person.toLocaleLowerCase();
+    // if (!this.todoList[personName]) {
+    //   this.todoList[personName] = [{ name, completed }];
+    //   return JSON.stringify({ message: 'a new todo list created' });
+    // }
+    this.todoList.push({ name, completed });
     return JSON.stringify({ message: 'a new todo item created' });
   }
 
